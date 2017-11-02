@@ -1,12 +1,15 @@
 
 package com.wasdlabs.app.labs.connect.tobackend.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class AccessInfo {
+public class AccessInfo implements Parcelable {
 
     @SerializedName("accessViewStatus")
     private String mAccessViewStatus;
@@ -109,4 +112,50 @@ public class AccessInfo {
         mWebReaderLink = webReaderLink;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mAccessViewStatus);
+        dest.writeString(this.mCountry);
+        dest.writeValue(this.mEmbeddable);
+        dest.writeParcelable(this.mEpub, flags);
+        dest.writeParcelable(this.mPdf, flags);
+        dest.writeValue(this.mPublicDomain);
+        dest.writeValue(this.mQuoteSharingAllowed);
+        dest.writeString(this.mTextToSpeechPermission);
+        dest.writeString(this.mViewability);
+        dest.writeString(this.mWebReaderLink);
+    }
+
+    public AccessInfo() {
+    }
+
+    protected AccessInfo(Parcel in) {
+        this.mAccessViewStatus = in.readString();
+        this.mCountry = in.readString();
+        this.mEmbeddable = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mEpub = in.readParcelable(Epub.class.getClassLoader());
+        this.mPdf = in.readParcelable(Pdf.class.getClassLoader());
+        this.mPublicDomain = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mQuoteSharingAllowed = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mTextToSpeechPermission = in.readString();
+        this.mViewability = in.readString();
+        this.mWebReaderLink = in.readString();
+    }
+
+    public static final Parcelable.Creator<AccessInfo> CREATOR = new Parcelable.Creator<AccessInfo>() {
+        @Override
+        public AccessInfo createFromParcel(Parcel source) {
+            return new AccessInfo(source);
+        }
+
+        @Override
+        public AccessInfo[] newArray(int size) {
+            return new AccessInfo[size];
+        }
+    };
 }

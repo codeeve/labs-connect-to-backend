@@ -1,5 +1,6 @@
 package com.wasdlabs.app.labs.connect.tobackend.recycler;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         Item item = itemList.get(position);
 
         VolumeInfo volInfo = item.getVolumeInfo();
@@ -51,7 +52,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
                 .load(volInfo.getImageLinks().getSmallThumbnail())
                 .into(holder.mCover);
 
-
+        //kasi masuk item click listener
+        holder.mContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClick.onItemClick(v, position);
+            }
+        });
 
     }
 
@@ -66,6 +73,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
         //bikin view holdernya
         TextView mJudul, mDescription;
         ImageView mCover;
+        ConstraintLayout mContainer;
         public MyViewHolder(View itemView) {
             super(itemView);
             mJudul = (TextView) itemView.findViewById(R.id.tv_judul);
@@ -73,7 +81,26 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
             mCover = (ImageView) itemView.findViewById(R.id.iv_gambar);
 
+            mContainer = (ConstraintLayout) itemView.findViewById(R.id.container);
+
+
 
         }
+    }
+
+    /**
+     * item click interface
+     */
+    //declare interface
+    private OnItemClicked onClick;
+
+    //make interface like this
+    public interface OnItemClicked {
+        void onItemClick(View v, int position);
+    }
+
+    public void setOnClick(OnItemClicked onClick)
+    {
+        this.onClick=onClick;
     }
 }

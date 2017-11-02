@@ -1,13 +1,16 @@
 
 package com.wasdlabs.app.labs.connect.tobackend.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class VolumeInfo {
+public class VolumeInfo implements Parcelable {
 
     @SerializedName("allowAnonLogging")
     private Boolean mAllowAnonLogging;
@@ -230,4 +233,74 @@ public class VolumeInfo {
         mTitle = title;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.mAllowAnonLogging);
+        dest.writeStringList(this.mAuthors);
+        dest.writeValue(this.mAverageRating);
+        dest.writeString(this.mCanonicalVolumeLink);
+        dest.writeStringList(this.mCategories);
+        dest.writeString(this.mContentVersion);
+        dest.writeString(this.mDescription);
+        dest.writeParcelable(this.mImageLinks, flags);
+        dest.writeTypedList(this.mIndustryIdentifiers);
+        dest.writeString(this.mInfoLink);
+        dest.writeString(this.mLanguage);
+        dest.writeString(this.mMaturityRating);
+        dest.writeValue(this.mPageCount);
+        dest.writeParcelable(this.mPanelizationSummary, flags);
+        dest.writeString(this.mPreviewLink);
+        dest.writeString(this.mPrintType);
+        dest.writeString(this.mPublishedDate);
+        dest.writeString(this.mPublisher);
+        dest.writeValue(this.mRatingsCount);
+        dest.writeParcelable(this.mReadingModes, flags);
+        dest.writeString(this.mSubtitle);
+        dest.writeString(this.mTitle);
+    }
+
+    public VolumeInfo() {
+    }
+
+    protected VolumeInfo(Parcel in) {
+        this.mAllowAnonLogging = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mAuthors = in.createStringArrayList();
+        this.mAverageRating = (Double) in.readValue(Double.class.getClassLoader());
+        this.mCanonicalVolumeLink = in.readString();
+        this.mCategories = in.createStringArrayList();
+        this.mContentVersion = in.readString();
+        this.mDescription = in.readString();
+        this.mImageLinks = in.readParcelable(ImageLinks.class.getClassLoader());
+        this.mIndustryIdentifiers = in.createTypedArrayList(IndustryIdentifier.CREATOR);
+        this.mInfoLink = in.readString();
+        this.mLanguage = in.readString();
+        this.mMaturityRating = in.readString();
+        this.mPageCount = (Long) in.readValue(Long.class.getClassLoader());
+        this.mPanelizationSummary = in.readParcelable(PanelizationSummary.class.getClassLoader());
+        this.mPreviewLink = in.readString();
+        this.mPrintType = in.readString();
+        this.mPublishedDate = in.readString();
+        this.mPublisher = in.readString();
+        this.mRatingsCount = (Long) in.readValue(Long.class.getClassLoader());
+        this.mReadingModes = in.readParcelable(ReadingModes.class.getClassLoader());
+        this.mSubtitle = in.readString();
+        this.mTitle = in.readString();
+    }
+
+    public static final Parcelable.Creator<VolumeInfo> CREATOR = new Parcelable.Creator<VolumeInfo>() {
+        @Override
+        public VolumeInfo createFromParcel(Parcel source) {
+            return new VolumeInfo(source);
+        }
+
+        @Override
+        public VolumeInfo[] newArray(int size) {
+            return new VolumeInfo[size];
+        }
+    };
 }
